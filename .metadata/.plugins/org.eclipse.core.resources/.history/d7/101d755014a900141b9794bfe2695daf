@@ -1,0 +1,7 @@
+package acadSection;
+
+public interface CompareThem
+{
+	public boolean equals(CompareThem other);
+	public String[] getName();
+}

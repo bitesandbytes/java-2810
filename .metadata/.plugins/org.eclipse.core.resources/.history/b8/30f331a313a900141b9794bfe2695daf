@@ -1,0 +1,13 @@
+package acadSection;
+
+public class nonFaculty extends Employee implements CompareThem
+{
+	String nonFacultyID;
+	String department;
+	
+	public nonFaculty()
+	{
+		super();
+		department = null;
+	}
+}

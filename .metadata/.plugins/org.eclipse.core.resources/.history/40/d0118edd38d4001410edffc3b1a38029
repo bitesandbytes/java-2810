@@ -1,0 +1,18 @@
+/*
+ * Author : Sauce (CS13B056)
+ * CS2810 - Advanced Programming Lab
+ * Runner class to test AVL Tree implementation.
+ */
+
+import java.util.*;
+
+public class Runner
+{
+	public static void main(String[] args)
+	{
+		AVLTree<Integer> tree = new AVLTree<Integer>();
+		int input;
+		Scanner in = new Scanner(System.in);
+		while(input!=-1)
+ 	}
+}

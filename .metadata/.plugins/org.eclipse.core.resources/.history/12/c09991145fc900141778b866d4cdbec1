@@ -1,0 +1,30 @@
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.*;
+
+public class Tester
+{
+	public static void main(String[] args) throws FileNotFoundException
+	{
+		PriorityQueue<TokenSet> newTokens = new PriorityQueue<TokenSet>();
+		PriorityQueue<TokenSet> openedTokens = new PriorityQueue<TokenSet>();
+		System.setIn(new FileInputStream(args[0]));
+		Scanner in = new Scanner(System.in);
+		int tokenSetCount = in.nextInt();
+		int tokenCount, expiryDate,timeLeft;
+		int discardedCount = 0;
+		int curDate = 1;
+		while(tokenSetCount > 0)
+		{
+			tokenCount = in.nextInt();
+			expiryDate = in.nextInt();
+			timeLeft = in.nextInt();
+			newTokens.add(new TokenSet(tokenCount, expiryDate,timeLeft));
+		}
+		TokenSet curTokenSet = null;
+		while(!newTokens.isEmpty())
+		{
+		}
+			
+	}
+}

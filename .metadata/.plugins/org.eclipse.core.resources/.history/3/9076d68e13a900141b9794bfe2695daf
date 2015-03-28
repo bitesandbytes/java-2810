@@ -1,0 +1,35 @@
+package acadSection;
+
+public class Faculty extends Employee
+{
+	String facultyID;
+	String profPosition;
+	
+	public Faculty()
+	{
+		super();
+		facultyID = 0;
+		profPosition = null;
+	}
+	@Override
+	public String getID()
+	{
+		return facultyID;
+	}
+
+	public void setID(String facultyID)
+	{
+		this.facultyID = facultyID;
+	}
+
+	public String getProfPosition()
+	{
+		return profPosition;
+	}
+
+	public void setProfPosition(String profPosition)
+	{
+		this.profPosition = profPosition;
+	}
+
+}

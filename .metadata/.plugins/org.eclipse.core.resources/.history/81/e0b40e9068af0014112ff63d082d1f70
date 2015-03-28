@@ -1,0 +1,26 @@
+package sortPerformanceAnalysis;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class testMergeSort
+{
+	public static <T extends Comparable<T>> void printList(List <T> list)
+	{
+		for(int i=0;i<list.size();i++)
+		{
+			System.out.print(" "+list.get(i));
+		}
+	}
+	
+	public static void main(String[] args)
+	{
+		List <Integer> list = new ArrayList<Integer>();
+		for(int i=0;i<10;i++)
+			list.add(10-i);
+		printList(list);
+		System.out.println("Sorted = ");
+		list = mergeSort.sort(list);
+		printList(list);
+	}
+}

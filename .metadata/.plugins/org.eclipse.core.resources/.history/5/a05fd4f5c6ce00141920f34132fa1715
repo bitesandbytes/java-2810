@@ -1,0 +1,11 @@
+package minVertexCover;
+
+public class Graph
+{
+	public Vertex[] vertices;
+	public int n;
+	Graph(int n)
+	{
+		vertices = 
+	}
+}

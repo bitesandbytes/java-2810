@@ -1,0 +1,72 @@
+
+public class TokenSet implements Comparable<TokenSet>
+{
+	int tokenCount;
+	int expiresOn;
+	int timeLeft;
+	boolean isOpened;
+	
+	TokenSet(int a, int b, int c)
+	{
+		tokenCount = a;
+		expiresOn = b;
+		timeLeft = c;
+		isOpened = false;
+	}
+	
+	//Used for ordering of the token sets.
+	public int compareTo(TokenSet other)
+	{
+		if(this.isOpened && other.isOpened)
+		{
+			if(this.expiresOn < other.expiresOn)
+				return -1;
+			else if(this.expiresOn > other.expiresOn)
+				return 1;
+			else
+			{
+				if(this.timeLeft < other.timeLeft)
+					return -1;
+				else if(this.timeLeft > other.timeLeft)
+					return 1;
+				else
+					return 0;
+			}
+		}
+		else
+		{
+			if(this.isOpened)
+			{
+				if(other.expiresOn < this.expiresOn && other.timeLeft < this.timeLeft)
+					return 1;
+				if(other.expiresOn > this.expiresOn && other.timeLeft > this.timeLeft)
+					return -1;
+				else if(other.expiresOn < this.expiresOn && other.timeLeft > this.timeLeft)
+					return 1;
+				else
+					return -1;
+			}
+			else if(other.isOpened)
+				return other.compareTo(this);
+			
+			else
+			{
+				if(this.expiresOn < other.expiresOn && this.timeLeft < other.timeLeft)
+					return -1;
+				else if(this.expiresOn > other.expiresOn && this.timeLeft > other.timeLeft)
+					return 1;
+				else if(this.expiresOn > other.expiresOn)
+					return 1;
+				else
+				{
+					if(this.timeLeft < other.timeLeft)
+						return -1;
+					else if(this.timeLeft > other.timeLeft)
+						return 1;
+					else
+						return 0;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,6 @@
+1425641134140	Move compilation unit
+1425641136204	Move compilation unit
+1425641354391	Rename field 'minNode'
+1425643384114	Rename local variable 'maxHeap'
+1425643400262	Rename local variable 'minHeap'
+1425643415367	Rename local variable 'changeTOMINmaxHeap'

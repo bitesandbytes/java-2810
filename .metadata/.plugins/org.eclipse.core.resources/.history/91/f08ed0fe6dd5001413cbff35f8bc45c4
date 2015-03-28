@@ -1,0 +1,271 @@
+import java.util.LinkedList;
+import java.util.NoSuchElementException;
+import java.util.Queue;
+
+public class BSTree
+{
+	private int count;
+	private node root;
+
+	// Overloaded constructors.
+	public tree()
+	{
+		count = 0;
+		root = null;
+	}
+
+	public tree(int n)
+	{
+		count = 1;
+		root = new node(1);
+	}
+
+	// Copy constructor.
+	public tree(tree t)
+	{
+		this.count = t.count;
+		this.root = t.root;
+		return;
+	}
+
+	// Getters and Setters.
+	public node getRoot()
+	{
+		return root;
+	}
+
+	public void setRoot(int n)
+	{
+		root.setData(n);
+		return;
+	}
+
+	public boolean isEmpty()
+	{
+		return (count == 0);
+	}
+
+	public node getNode()
+	{
+		return root;
+	}
+
+	// Helper function to insert "n" with "theRoot" as the root.
+	private void addNode_(node theRoot, int n)
+	{
+		// If the function is called with a null ptr, return error and exit the
+		// program.
+		if (theRoot == null)
+		{
+			System.out.println("Unhandled exception. Exit(0).\n");
+		}
+
+		// If 'n' belongs to right subtree, then add it there.
+		if (n > theRoot.getData())
+		{
+			// Right subtree is empty.
+			if (theRoot.getRight() == null)
+			{
+				theRoot.setRight(new node(n));
+				return;
+			}
+
+			// Right subtree is not empty.
+			addNode_(theRoot.getRight(), n);
+			return;
+		}
+
+		// If 'n' belongs to the left subtree, then add it there.
+
+		// Left subtree is empty.
+		if (theRoot.getLeft() == null)
+		{
+			theRoot.setLeft(new node(n));
+			return;
+		}
+
+		// Left subtree is not empty.
+		addNode_(theRoot.getLeft(), n);
+	}
+
+	// This function adds a new node in a given tree.
+	public void add(int n)
+	{
+		// If it's an empty tree, add a root node.
+		if (this.root == null)
+		{
+			this.root = new node(n);
+			return;
+		}
+
+		// Else, call the add_node function on the tree's root.
+		addNode_(root, n);
+		this.count++;
+		return;
+	}
+
+	// Helper function to find "n" in a tree with "root" as the root.
+	private boolean nodeFound(node root, int n)
+	{
+		// Empty tree.
+		if (root == null)
+			return false;
+
+		if (root.getData() == n)
+			return true;
+
+		// If it's in the left subtree.
+		else if (root.getData() > n)
+			return nodeFound(root.getLeft(), n);
+
+		// if it's in the right subtree.
+		else
+			return nodeFound(root.getRight(), n);
+	}
+
+	// This function checks if a given node already exists in the BST.
+	public boolean find(int n)
+	{
+		if (this.root == null)
+			return false;
+		else
+			return nodeFound(this.root, n);
+	}
+
+	// This function prints the BST depending on the args.
+	public void print(String style)
+	{
+		if (style.equals("sorted") == true)
+			this.printSorted();
+		else if (style.equals("bfs") || style.equals("BFS"))
+			this.printBFS();
+	}
+
+	// Helper function for remove.
+	private node remove_(node root, int n)
+	{
+		// If the current node is to be deleted.
+		if (n == root.getData())
+		{
+			// Case 1: Right subtree empty.
+			if (root.getRight() == null)
+			{
+				return root.getLeft();
+			}
+
+			if (root.getLeft() == null && root.getRight() != null)
+			{
+				return root.getRight();
+			}
+
+			// Case 3: Both trees are not empty.
+			int minRight = min_(root.getRight());
+			root.setData(minRight);
+			root.setRight(remove_(root.getRight(), minRight));
+			return root;
+		}
+
+		// If its in the right subtree.
+		if (n > root.getData())
+		{
+			root.setRight(remove_(root.getRight(), n));
+			return root;
+		}
+
+		// If it's in the left subtree.
+		if (n < root.getData())
+		{
+			root.setLeft(remove_(root.getLeft(), n));
+			return root;
+		}
+
+		return root;
+	}
+
+	// This function removes the value 'n' from tree.
+	public void remove(int n)
+	{
+		// When there is only one node.
+		if (n == root.getData() && root.getLeft() == null
+				&& root.getRight() == null)
+		{
+			this.root = null;
+			return;
+		}
+		this.root = remove_(this.root, n);
+		this.count--;
+		return;
+	}
+
+	// Finds the minimum value in a given BST with root.
+	private int min_(node root)
+	{
+		if (root.getLeft() == null)
+			return root.getData();
+		else
+			return min_(root.getLeft());
+	}
+
+	// Recursive function to print the BST in a sorted manner.
+	private void printSorted_(node rt)
+	{
+		if (rt == null)
+		{
+			return;
+		}
+		printSorted_(rt.getLeft());
+		System.out.print(rt.getData() + " ");
+		printSorted_(rt.getRight());
+		return;
+	}
+
+	// This function prints a BST in a sorted manner.
+	public void printSorted()
+	{
+		System.out.println("\n");
+		if (root == null)
+			return;
+		printSorted_(root);
+		System.out.println("\n");
+		return;
+	}
+
+	// Prints the BST in a breadth-first manner (by using an optimized queue).
+	public void printBFS()
+	{
+		// Instantiate a queue based on linked list approach.
+		Queue<node> q = new LinkedList<node>();
+
+		// Handles the case when there is no node in the tree.
+		if (this.root == null)
+		{
+			System.out.println("Empty tree\n");
+			return;
+		}
+
+		// Make a copy of the root and use it to traverse the tree.
+		node tRoot = new node(root);
+		q.add(tRoot);
+		try
+		{
+			while (true)
+			{
+				tRoot = q.remove();
+				if (tRoot == null)
+					break;
+				System.out.println(tRoot.data + " ");
+				if (tRoot.left != null)
+					q.add(tRoot.left);
+				if (tRoot.right != null)
+					q.add(tRoot.right);
+			}
+		}
+
+		// Catch the exception when there is no element left in the queue.
+		catch (NoSuchElementException ex)
+		{
+			System.out.println("\n");
+		}
+		return;
+	}
+}

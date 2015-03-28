@@ -1,0 +1,60 @@
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.PriorityQueue;
+
+
+public class PrimAlgo
+{
+	private static int buildMinSpanningTree(Graph graph, PriorityQueue<Edge> edges, Graph minSpanningTree) 
+	{
+		ArrayList<Vertex> unvisited = new ArrayList<Vertex>();
+		ArrayList<Vertex> visited = new ArrayList<Vertex>();
+		
+		//Add the vertices to unvisited set.
+		for(int i=0;i<graph.n;i++)
+			unvisited.add(graph.vertices[i]);
+		
+		//Start with the first vertex.
+		Vertex currentVertex = graph.vertices[0];
+		
+		Edge currentEdge = null;
+		int treeWeight = 0;
+		Iterator<Edge> edge = edges.iterator();
+		//Builds the min spanning tree.
+		while(edge.hasNext())
+		{
+			if(unvisited.isEmpty())
+				break;
+			
+			currentEdge = edge.next();
+			//If you've exhausted all the edges/adjacent nodes.
+			if(currentEdge == null)
+				break;
+				
+			//If the edge causes a cycle.
+			if(visited.contains(currentEdge.dest))
+				swap(currentEdge);
+			
+			if(visited.contains(currentEdge.dest))
+				continue;
+			
+			currentVertex = currentEdge.source;
+			visited.add(currentVertex);
+			
+			//Add node to visited.
+			minSpanningTree.vertices[currentVertex.vertexID].edges.add(currentEdge);
+			minSpanningTree.e++;
+			treeWeight += currentEdge.weight;
+			visited.add(currentEdge.dest);
+		}
+		return treeWeight;
+	}
+	
+	//Swaps the source and destination for the edge.
+	private static void swap(Edge edge) 
+	{
+		Vertex src = edge.source;
+		edge.source = edge.dest;
+		edge.dest = src;
+	}
+}

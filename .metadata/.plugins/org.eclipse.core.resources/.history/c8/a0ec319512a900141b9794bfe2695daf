@@ -1,0 +1,17 @@
+package acadSection;
+
+import java.util.HashSet;
+import java.util.Set;
+
+public class Faculty extends Employee
+{
+	int facultyID;
+	String profPosition;
+	public Faculty()
+	{
+		super();
+		facultyID = 0;
+		profPosition = null;
+	}
+
+}

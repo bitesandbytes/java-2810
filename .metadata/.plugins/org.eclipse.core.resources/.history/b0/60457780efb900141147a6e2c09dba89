@@ -1,0 +1,50 @@
+import java.util.*;
+
+public class KruskalAlgo
+{	
+	//A list to hold the different trees in the forest.
+	public static ArrayList<HashSet<Vertex>> forest = new ArrayList<HashSet<Vertex>>();
+	
+	//TODO: Implement Kruskal's algorithm here.
+	public static void buildMinSpanningTree(Graph graph, PriorityQueue<Edge> edges, Graph minSpanningTree)
+	{
+		//Implement DFS for each vertex in the edge here.
+	}
+	
+	//TODO: Implement DFS search for cycles here.
+	private static boolean doesTheEdgeCompleteCycle(Edge e)
+	{
+		for(HashSet<Vertex> tree: forest)
+		{
+			if(tree.contains(e.source) && tree.contains(e.dest))
+				return true;
+		}
+		return false;
+	}
+	
+	private static joinTrees(Graph minSpanningTree, Edge e)
+	{
+		HashSet<Vertex> source, dest;
+		for(HashSet<Vertex> tree : forest)
+		{
+			if(tree.contains(e.source))
+				source = tree;
+			else if(tree.contains(e.dest))
+				dest = tree;
+			else
+				continue;
+		}
+		
+		//Add the edge to the minSpanningTree.
+		Vertex sourceVertex = e.source;
+		Vertex destVertex = e.dest;
+		if(sourceVertex.vertexID < destVertex.vertexID)
+		{
+			minSpanningTree.vertices[sourceVertex.vertexID].edges.add(e);
+		}
+		else
+			minSpanningTree.vertices[destVertex.vertexID].edges.add(new Edge(e.dest,e.source, e.weight));
+			
+		//Merge the source tree and the destination tree into one.
+	}
+}

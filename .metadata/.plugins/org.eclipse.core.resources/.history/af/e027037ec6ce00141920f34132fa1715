@@ -1,0 +1,21 @@
+package minVertexCover;
+import java.util.*;
+
+public class Vertex implements Comparable<Vertex>
+{
+	int degree;
+	ArrayList<Vertex> children;
+	int vertexInMinVertexCover, vertexNotInMinVertexCover;
+	
+	Vertex()
+	{
+		degree = 0;
+		children = new ArrayList<Vertex>();
+		vertexInMinVertexCover = -1;
+		vertexNotInMinVertexCover = -1;
+	}
+	public int compareTo(Vertex other)
+	{
+		return (new Integer(this.degree)).compareTo(new Integer(other.degree));
+	}
+}

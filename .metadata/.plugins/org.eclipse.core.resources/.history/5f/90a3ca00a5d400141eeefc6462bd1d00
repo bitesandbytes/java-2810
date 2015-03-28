@@ -1,0 +1,17 @@
+import java.util.*;
+
+public class newAVL<T extends Comparable<T>>
+{
+	private Node<T> treeRoot;
+	private int treeSize;
+	private Stack<Node<T>> newNodePath;
+	private Queue<Node<T>> BFSQueue;
+
+	newAVL()
+	{
+		treeRoot = null;
+		treeSize = 0;
+		newNodePath = new Stack<Node<T>>();
+		BFSQueue = new LinkedList<Node<T>>();
+	}
+}

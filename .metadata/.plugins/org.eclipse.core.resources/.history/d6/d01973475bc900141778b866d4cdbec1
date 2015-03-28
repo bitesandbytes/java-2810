@@ -1,0 +1,8 @@
+
+public class TokenSet
+{
+	int tokenCount;
+	int expiresOn;
+	int timeLeftForExpiry;
+	
+}

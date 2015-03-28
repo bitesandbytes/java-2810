@@ -1,0 +1,136 @@
+package acadSection;
+
+public class Student extends Person 
+{
+	String rollNo;
+	String hostel;
+	double CGPA;
+	int semester;
+	int creditsEarned;
+	int currentSemesterCreditsTotal;
+	int currentSemesterCreditsEarned;
+	Faculty facAd;
+
+	public Student()
+	{
+		super();
+		rollNo = null;
+		hostel = null;
+		CGPA = 0;
+		semester = 0;
+		currentSemesterCreditsEarned = 0;
+		currentSemesterCreditsTotal = 0;
+		facAd = null;
+	}
+	
+	public Student(String rollNo, String hostel, double cGPA, int semester,
+			int creditsEarned, int currentSemesterCreditsTotal,
+			int currentSemesterCreditsEarned, Faculty facAd)
+	{
+		super();
+		this.rollNo = rollNo;
+		this.hostel = hostel;
+		CGPA = cGPA;
+		this.semester = semester;
+		this.creditsEarned = creditsEarned;
+		this.currentSemesterCreditsTotal = currentSemesterCreditsTotal;
+		this.currentSemesterCreditsEarned = currentSemesterCreditsEarned;
+		this.facAd = facAd;
+	}
+
+	public String getRollNo()
+	{
+		return rollNo;
+	}
+
+	public void setRollNo(String rollNo)
+	{
+		this.rollNo = rollNo;
+	}
+
+	public String getHostel()
+	{
+		return hostel;
+	}
+
+	public void setHostel(String hostel)
+	{
+		this.hostel = hostel;
+	}
+
+	public double getCGPA()
+	{
+		return CGPA;
+	}
+
+	public void setCGPA(double cGPA)
+	{
+		CGPA = cGPA;
+	}
+
+	public int getSemester()
+	{
+		return semester;
+	}
+
+	public void setSemester(int semester)
+	{
+		this.semester = semester;
+	}
+
+	public int getCreditsEarned()
+	{
+		return creditsEarned;
+	}
+
+	public void setCreditsEarned(int creditsEarned)
+	{
+		this.creditsEarned = creditsEarned;
+	}
+
+	public int getCurrentSemesterCreditsTotal()
+	{
+		return currentSemesterCreditsTotal;
+	}
+
+	public void setCurrentSemesterCreditsTotal(int currentSemesterCreditsTotal)
+	{
+		this.currentSemesterCreditsTotal = currentSemesterCreditsTotal;
+	}
+
+	public int getCurrentSemesterCreditsEarned()
+	{
+		return currentSemesterCreditsEarned;
+	}
+
+	public void setCurrentSemesterCreditsEarned(int currentSemesterCreditsEarned)
+	{
+		this.currentSemesterCreditsEarned = currentSemesterCreditsEarned;
+	}
+
+	public Faculty getFacAd()
+	{
+		return facAd;
+	}
+
+	public void setFacAd(Faculty facAd)
+	{
+		this.facAd = facAd;
+	}
+	
+	//Not an overridden method.
+	public void sendMail()
+	{
+		System.out.println("Sending mail to Faculty Advisor");
+		facAd.receiveMail();
+	}
+	
+	//Not an overridden method.
+	public void checkCredits()
+	{
+		if(currentSemesterCreditsEarned < currentSemesterCreditsTotal)
+			this.sendMail();
+		else
+			return;
+	}
+}

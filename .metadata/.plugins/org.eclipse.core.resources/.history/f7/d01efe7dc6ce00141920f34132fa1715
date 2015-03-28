@@ -1,0 +1,72 @@
+package minVertexCover;
+import java.util.*;
+import java.io.*;
+
+public class Runner
+{
+	public static void main(String[] args)
+	{
+		Scanner in = new Scanner(System.in);
+		int n = in.nextInt();
+		int startVertex, endVertex;
+		Graph graph = new Graph(n);
+		for(int i=0;i<n;i++)
+		{
+			startVertex = in.nextInt();
+			endVertex = in.nextInt();
+			startVertex--;
+			endVertex--;
+			graph.vertices[startVertex].children.add(graph.vertices[endVertex]);
+			graph.vertices[endVertex].children.add(graph.vertices[startVertex]);
+		}
+		PriorityQueue<Vertex> orderOfProbing = new PriorityQueue<Vertex>();
+		for(Vertex v : graph.vertices)
+			orderOfProbing.add(v);
+		Vertex tempVertex = null;
+		while(!orderOfProbing.isEmpty())
+		{
+			tempVertex = orderOfProbing.poll();
+			tempVertex.vertexInMinVertexCover = vertexInMinVertexCover(tempVertex);
+			tempVertex.vertexNotInMinVertexCover = vertexNotInMinVertexCover(tempVertex);
+		}
+		in.close();
+	}
+
+	//If the vertex is in Min Vertex Cover, then
+	private static int vertexInMinVertexCover(Vertex root)
+	{
+		if(root == null)
+			return 0;
+		//If the vertex has already been visited, return stored value.
+		if(root.vertexInMinVertexCover!=-1)
+			return root.vertexInMinVertexCover;
+		int sum = 1;
+		for(Vertex child : root.children)
+			sum+=min(vertexInMinVertexCover(child),vertexNotInMinVertexCover(child));
+		return sum;
+	}
+	
+	private static int vertexNotInMinVertexCover(Vertex root)
+	{
+		if(root == null)
+			return 0;
+		if(root.vertexNotInMinVertexCover!=-1)
+			return root.vertexNotInMinVertexCover;
+		int sum = 0;
+		for(Vertex child : root.children)
+			sum+=vertexInMinVertexCover(child);
+		
+		//If the root is not in Min Vertex Cover, then all it's children must be.
+		return sum;
+	}
+
+	//Computes the minimum of two integers.
+	private static int min(int a, int b)
+	{
+		if(a < b)
+			return a;
+		else
+			return b;
+	}
+
+}

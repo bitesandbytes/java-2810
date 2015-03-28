@@ -1,0 +1,78 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.*;
+
+public class Runner 
+{
+	public static void main(String[] args) throws FileNotFoundException
+	{
+		
+		Graph graph;
+		Graph minSpanningTree;
+		int cost;
+		String inputFile = "input.txt";
+		Scanner in = new Scanner(new File(inputFile));	
+		cost = in.nextInt();
+		int max = 0;
+		int vertexA, vertexB, weight;
+		ArrayList<Integer> input = new ArrayList<Integer>();
+		PriorityQueue<Edge> edges = new PriorityQueue<Edge>();
+		//Scan the input and put the input into a list.
+		for(int i=0;in.hasNext();i++)
+		{
+			vertexA = in.nextInt();
+			vertexB = in.nextInt();
+			weight = in.nextInt();
+			if(vertexA > max)
+			{
+				max = vertexA;
+			}
+			if(vertexB > max)
+			{
+				max = vertexB;
+			}
+			input.add(vertexA-1);
+			input.add(vertexB-1);
+			input.add(weight);
+		}
+		in.close();
+		Iterator<Integer> inputValue = input.iterator();
+		graph = new Graph(max,0);
+		minSpanningTree = new Graph(max, 0);
+		//Builds the graph.
+		while(inputValue.hasNext())
+		{
+			vertexA = inputValue.next();
+			vertexB = inputValue.next();
+			weight = inputValue.next();
+			if(vertexA < vertexB)
+			{
+				edges.offer(new Edge(graph.vertices[vertexA], graph.vertices[vertexB], weight));
+			}
+			else
+				edges.offer(new Edge(graph.vertices[vertexB], graph.vertices[vertexA], weight));
+			graph.vertices[vertexA].edges.add(new Edge(graph.vertices[vertexA], graph.vertices[vertexB], weight));
+			graph.vertices[vertexB].edges.add(new Edge(graph.vertices[vertexB], graph.vertices[vertexA], weight));
+		}
+		weight = buildMinSpanningTree(graph,edges,minSpanningTree);
+		System.out.println(weight*cost);
+		printMinSpanningTree(minSpanningTree);
+	}
+
+	private static void printMinSpanningTree(Graph minSpanningTree) 
+	{
+		Vertex curVertex;
+		Iterator<Edge> edge;
+		Edge curEdge;
+		for(int i=0;i<minSpanningTree.n;i++)
+		{
+			curVertex = minSpanningTree.vertices[i];
+			edge = curVertex.edges.iterator();
+			while(edge.hasNext())
+			{
+				curEdge = edge.next();
+				System.out.println((curEdge.source.vertexID+1)+" "+(curEdge.dest.vertexID+1));
+			}
+		}
+	}
+}

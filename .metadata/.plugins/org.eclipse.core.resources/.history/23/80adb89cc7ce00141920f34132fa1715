@@ -1,0 +1,19 @@
+package minVertexCover;
+import java.util.*;
+public class Runner
+{
+	public static void main(String[] args)
+	{
+		Graph graph;
+		int n, m;
+		Scanner in = new Scanner(System.in);
+		n = in.nextInt();
+		int vertexA, vertexB;
+		do
+		{
+			vertexA = in.nextInt();
+			vertexB = in.nextInt();
+			
+		}
+	}
+}

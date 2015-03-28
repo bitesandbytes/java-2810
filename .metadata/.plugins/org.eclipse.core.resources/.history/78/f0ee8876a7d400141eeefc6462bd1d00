@@ -1,0 +1,207 @@
+import java.util.*;
+
+public class newAVL<T extends Comparable<T>>
+{
+	private Node<T> treeRoot;
+	private int treeSize;
+	private Stack<Node<T>> newNodePath;
+	private Queue<Node<T>> BFSQueue;
+
+	newAVL()
+	{
+		treeRoot = null;
+		treeSize = 0;
+		newNodePath = new Stack<Node<T>>();
+		BFSQueue = new LinkedList<Node<T>>();
+	}
+
+	public void insert(T data)
+	{
+		Node<T> newNode = new Node<T>(data);
+		treeSize++;
+
+		if (treeRoot == null)
+			treeRoot = newNode;
+		else
+			stdInsert(treeRoot, newNode);
+
+		updateBalanceFactor(newNode);
+		Node<T> unbalancedNode = findUnbalancedNode(newNode);
+		if (unbalancedNode != null)
+			balanceInsertion(unbalancedNode);
+	}
+
+	private void stdInsert(Node<T> root, Node<T> newNode)
+	{
+		if (root.compareTo(newNode) < 0)
+		{
+			if (root.left == null)
+			{
+				root.left = newNode;
+				newNode.parent = root;
+				return;
+			}
+			else
+				stdInsert(root.left, newNode);
+		}
+		else
+		{
+			if (root.right == null)
+			{
+				root.right = newNode;
+				newNode.parent = root;
+				return;
+			}
+			else
+				stdInsert(root.right, newNode);
+		}
+		return;
+	}
+
+	private void updateBalanceFactor(Node<T> root)
+	{
+		if(root.parent.left == root)
+		{
+			root.parent.balanceFactor--;
+		}
+		else
+			root.parent.balanceFactor++;
+		
+	}
+
+	public Node<T> findUnbalancedNode(Node<T> leaf)
+	{
+		if (leaf == null)
+			return null;
+		if (leaf.balanceFactor < -1 || leaf.balanceFactor > 1)
+			return leaf;
+		else
+			return findUnbalancedNode(leaf.parent);
+	}
+	
+	private void balanceInsertion(Node<T> unbalancedNode)
+	{
+		
+	}
+	// Left rotates about the node "oldRoot".
+	private void leftRotate(Node<T> oldRoot)
+	{
+		System.out.println("Left rotate at " + oldRoot.data);
+		Node<T> newRoot = oldRoot.right;
+
+		if (newRoot == null)
+			return;
+
+		Node<T> alphaSubTree = newRoot.left;
+		Node<T> rootParent = oldRoot.parent;
+
+		newRoot.parent = rootParent;
+
+		newRoot.left = oldRoot;
+		oldRoot.parent = newRoot;
+
+		oldRoot.right = alphaSubTree;
+
+		if (alphaSubTree != null)
+			alphaSubTree.parent = oldRoot;
+
+		// If you're rotating about the root of the tree.
+		if (rootParent == null)
+			treeRoot = newRoot;
+
+		// If the old Root was the left child of it's parent.
+		else if (rootParent.left == oldRoot)
+			rootParent.left = newRoot;
+
+		// If the old Root was the right child of it's parent.
+		else
+			rootParent.right = newRoot;
+
+		return;
+	}
+
+	// Right rotates about the node "oldRoot".
+	private void rightRotate(Node<T> oldRoot)
+	{
+		System.out.println("Right rotate at " + oldRoot.data);
+		Node<T> newRoot = oldRoot.left;
+
+		if (newRoot == null)
+			return;
+
+		Node<T> alphaSubTree = newRoot.right;
+		Node<T> rootParent = oldRoot.parent;
+
+		newRoot.parent = rootParent;
+
+		newRoot.right = oldRoot;
+		oldRoot.parent = newRoot;
+
+		oldRoot.left = alphaSubTree;
+
+		if (alphaSubTree != null)
+			alphaSubTree.parent = oldRoot;
+
+		// If you're rotating about the root of the tree.
+		if (rootParent == null)
+			treeRoot = newRoot;
+
+		// If the old Root was the left child of it's parent.
+		else if (rootParent.left == oldRoot)
+			rootParent.left = newRoot;
+
+		// If the old Root was the right child of it's parent.
+		else
+			rootParent.right = newRoot;
+
+		return;
+	}
+
+	// Prints the AVL Tree in sorted manner using inorder traversal.
+	public void print()
+	{
+		printInorder(treeRoot);
+		System.out.print("\n");
+		return;
+	}
+
+	// Does a standard BST recursive Inorder traversal.
+	private void printInorder(Node<T> root)
+	{
+		if (root == null)
+			return;
+		printInorder(root.left);
+		System.out.print(" " + root.data);
+		printInorder(root.right);
+		return;
+	}
+
+	// Does a BFS traversal of the AVL Tree.
+	private void printBFS()
+	{
+		System.out.println(" ");
+		BFSQueue.add(treeRoot);
+		Node<T> curNode = null;
+		while (!BFSQueue.isEmpty())
+		{
+			curNode = BFSQueue.remove();
+			System.out.println(curNode.data + " " + "BF = "
+					+ curNode.balanceFactor);
+			if (curNode.left != null)
+				BFSQueue.add(curNode.left);
+			if (curNode.right != null)
+				BFSQueue.add(curNode.right);
+		}
+		// System.out.println(" ");
+		return;
+	}
+
+	private int max(int a, int b)
+	{
+		if (a < b)
+			return b;
+		else
+			return a;
+	}
+
+}

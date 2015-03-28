@@ -1,0 +1,9 @@
+dtdComment=\#55FFFF | \#000000 | null | null | null | null
+dtdData=\#BBBBBB | \#000000 | null | null | null | null
+dtdDefault=\#BBBBBB | \#000000 | null | null | null | null
+dtdKeyword=\#55FF55 | \#000000 | false | null | null | null
+dtdString=\#FF55FF | \#000000 | null | null | null | null
+dtdSymbol=\#BBBBBB | \#000000 | null | null | null | null
+dtdTag=\#FFFF55 | \#000000 | null | null | null | null
+dtdTagName=\#FFFF55 | \#000000 | null | null | null | null
+eclipse.preferences.version=1

@@ -1,0 +1,73 @@
+package sortPerformanceAnalysis;
+
+import java.util.List;
+
+public class mergeSort
+{
+	private static <T extends Comparable <T>> List<T> merge(List<T> lstA, List<T> lstB)
+	{
+		List <T> mergedList = lstA.subList(0, 0);
+		int ptrA = 0, ptrB = 0;
+		T elementA = lstA.get(0), elementB = lstB.get(0);
+		for(ptrA = 0, ptrB= 0;ptrA<lstA.size() && ptrB < lstB.size();)
+		{
+			elementA = lstA.get(ptrA);
+			elementB = lstB.get(ptrB);
+			if(elementA.compareTo(elementB) < 0)
+			{
+				mergedList.add(elementA);
+				ptrA++;
+			}
+			else
+			{
+				mergedList.add(elementB);
+				ptrB++;
+			}
+		}
+		
+		for(;ptrA < lstA.size();)
+		{
+			mergedList.add(elementA);
+			ptrA++;			
+		}
+		
+		for(;ptrB < lstB.size();)
+		{
+			mergedList.add(elementB);
+			ptrB++;			
+		}
+		return mergedList;
+	}
+	
+	public static <T extends Comparable<T>> List <T> sort(List<T> lst)
+	{
+		//Bottom out at 2 elements.
+		if(lst.size() == 2)
+		{
+			T el1 = lst.get(0);
+			T el2 = lst.get(1);
+			if(el1.compareTo(el2) <= 0)
+			{
+				return lst;
+			}
+			else
+			{
+				lst.set(0, el2);
+				lst.set(1, el1);
+				return lst;
+			}
+		}
+		
+		//When the array size is not even, bottom out at 1.
+		if(lst.size() == 1)
+			return lst;
+		
+		int split = lst.size()/2;
+		List <T> left = lst.subList(0, split);
+		left = sort(left);
+		List <T> right = lst.subList(split+1,lst.size());
+		right = sort(right);
+		lst = merge(left,right);
+		return lst;
+	}
+}

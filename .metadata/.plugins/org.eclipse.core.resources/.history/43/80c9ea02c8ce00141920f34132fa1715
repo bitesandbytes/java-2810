@@ -1,0 +1,27 @@
+package minVertexCover;
+import java.util.*;
+public class Runner
+{
+	public static void main(String[] args)
+	{
+		Graph graph;
+		int n, m;
+		Scanner in = new Scanner(System.in);
+		n = in.nextInt();
+		graph = new Graph(n);
+		int vertexA, vertexB;
+		while(in.hasNext())
+		{
+			vertexA = in.nextInt();
+			vertexB = in.nextInt();
+			graph.vertices[vertexA].adjacentVertices.add(graph.vertices[vertexB]);
+			graph.vertices[vertexA].degree++;
+			graph.vertices[vertexB].adjacentVertices.add(graph.vertices[vertexA]);
+			graph.vertices[vertexB].degree++;
+		}
+		PriorityQueue<Vertex> orderOfProbing = new PriorityQueue<Vertex>();
+		for(Vertex v : graph.vertices)
+			orderOfProbing.add(v);
+		
+	}
+}

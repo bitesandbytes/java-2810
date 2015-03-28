@@ -1,0 +1,22 @@
+package acadSection;
+
+public class Student extends Person 
+{
+	String rollNo;
+	String hostel;
+	double CGPA;
+	int semester;
+	int creditsEarned;
+	Faculty facAd;
+	
+	public Student()
+	{
+		super();
+		rollNo = null;
+		hostel = null;
+		CGPA = 0;
+		semester = 0;
+		creditsEarned = 0;
+		facAd = null
+	}
+}

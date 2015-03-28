@@ -1,0 +1,120 @@
+package sortPerformanceAnalysis;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
+
+public class testClass
+{
+	private static final int largestSize = 100000;
+	//Generates a random int ArrayList of size 'size' using 'randomObject'
+	public static List<Integer> getRandomIntArrayList(int size, Random randomObject)
+	{
+		List <Integer> lst = new ArrayList <Integer>();
+		for(int i=0;i<size;i++)
+			lst.add(randomObject.nextInt());
+		return lst;		
+	}
+	
+	//Generates a random float ArrayList of size 'size' using 'randomObject'
+	public static List<Float> getRandomFloatArrayList(int size, Random randomObject)
+	{
+		List <Float> lst = new ArrayList <Float>();
+		for(int i=0;i<size;i++)
+			lst.add(randomObject.nextFloat()*size);
+		return lst;		
+	}
+	
+	//Generates a random int LinkedList of size 'size' using 'randomObject'
+	public static List<Integer> getRandomIntLinkedList(int size, Random randomObject)
+	{
+		List <Integer> lst = new LinkedList <Integer>();
+		for(int i=0;i<size;i++)
+			lst.add(randomObject.nextInt());
+		return lst;		
+	}
+	
+	//Generates a random float LinkedList of size 'size' using 'randomObject'
+	public static List<Float> getRandomFloatLinkedList(int size, Random randomObject)
+	{
+		List <Float> lst = new LinkedList <Float>();
+		for(int i=0;i<size;i++)
+			lst.add(randomObject.nextFloat()*size);
+		return lst;		
+	}
+	
+	//To measure the time taken to sort 'lst' using Merge Sort technique.
+	public static <T extends Comparable<T>> double mergeSortTime(List<T> lst)
+	{
+		double startTime = System.nanoTime();
+		mergeSort.sort(lst);
+		double endTime = System.nanoTime();
+		return (endTime - startTime)/1000000000;
+	}
+	
+	//To measure the time taken to sort 'lst' using Insertion Sort technique.
+	public static <T extends Comparable<T>> double insertionSortTime(List<T> lst)
+	{	
+		double startTime = System.nanoTime();	
+		insertionSort.sort(lst);	
+		double endTime = System.nanoTime();	
+		return (endTime - startTime)/1000000000;
+	}	
+	
+	public static void analyzeMergeSort(int largestSize)
+	{
+		System.out.println("Merge Sort Analysis.");
+		int i = 0;
+		Random randomObject = new Random();
+		int count =(int)Math.log10(largestSize);
+		double[] intArrayTime = new double[count];
+		double[] floatArrayTime = new double[count];
+		double[] intLinkedTime = new double[count];
+		double[] floatLinkedTime = new double[count];
+		
+		for(i=0;i<count;i++)
+		{
+			intArrayTime[i] = mergeSortTime(getRandomIntArrayList((int)Math.pow(10, i), randomObject));
+			floatArrayTime[i] = mergeSortTime(getRandomFloatArrayList((int)Math.pow(10, i), randomObject));
+			intLinkedTime[i] = mergeSortTime(getRandomIntLinkedList((int)Math.pow(10, i), randomObject));
+			floatLinkedTime[i] = mergeSortTime(getRandomFloatLinkedList((int)Math.pow(10, i), randomObject));
+
+		}
+		for(i=0;i<count;i++)
+		{
+			System.out.println("Size = "+Math.pow(10, i));
+			System.out.println("ArrayList time:\nInteger Sort =  "+intArrayTime[i]+"\nFloat Sort = "+floatArrayTime[i]);
+			System.out.println("LinkedList time:\nInteger Sort =  "+intLinkedTime[i]+"\nFloat Sort = "+floatLinkedTime[i]);
+		}
+	}
+	
+	public static void analyzeInsertionSort(int largestSize)
+	{
+		System.out.println("Insertion Sort Analysis.");
+		int i = 0;
+		Random randomObject = new Random();
+		int count =(int)Math.log10(largestSize);
+		double[] intArrayTime = new double[count];
+		double[] floatArrayTime = new double[count];
+		double[] intLinkedTime = new double[count];
+		double[] floatLinkedTime = new double[count];
+		
+		for(i=0;i<count;i++)
+		{
+			System.out.println("Size = "+(int)Math.pow(10, i));
+			intArrayTime[i] = insertionSortTime(getRandomIntArrayList((int)Math.pow(10, i), randomObject));
+			intLinkedTime[i] = insertionSortTime(getRandomIntLinkedList((int)Math.pow(10, i), randomObject));
+			System.out.println("ArrayList time:\nInteger Sort =  "+intArrayTime[i]+"\nFloat Sort = "+floatArrayTime[i]);
+			floatArrayTime[i] = insertionSortTime(getRandomFloatArrayList((int)Math.pow(10, i), randomObject));
+			floatLinkedTime[i] = insertionSortTime(getRandomFloatLinkedList((int)Math.pow(10, i), randomObject));
+			System.out.println("LinkedList time:\nInteger Sort =  "+intLinkedTime[i]+"\nFloat Sort = "+floatLinkedTime[i]);
+		}
+	}
+	
+	public static void main(String[] args)
+	{
+		analyzeInsertionSort(largestSize);
+		analyzeMergeSort(largestSize);		
+	}
+}

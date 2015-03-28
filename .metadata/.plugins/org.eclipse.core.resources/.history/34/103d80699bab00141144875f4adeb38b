@@ -1,0 +1,12 @@
+package sortPerformanceAnalysis;
+
+public class insertionSortObject <T extends Number>
+{	
+	public T[] sortUsingInsertion(T[] array, int nums)
+	{
+		int i=0, j=0;
+		if(nums==0)
+			return array
+		return array;
+	}
+}

@@ -1,0 +1,12 @@
+import java.io.FileInputStream;
+import java.util.*;
+
+public class Tester
+{
+	public static void main(String[] args)
+	{
+		PriorityQueue<TokenSet> newTokens = new PriorityQueue<TokenSet>();
+		PriorityQueue<TokenSet> openedTokens = new PriorityQueue<TokenSet>();
+		System.setIn(new FileInputStream(args[0]));
+	}
+}

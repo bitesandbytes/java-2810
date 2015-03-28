@@ -1,0 +1,403 @@
+// Homework #2 Testing code
+// By Merrill McKee 2/13/2007
+// For Arup Guha's CS2 Spring 2007 class
+
+// Needs to be compiled with AVLTree.java from which it will
+// use that file's AVLTree class.
+
+public class testavl {
+
+	public static void main(String[] args) {
+		
+		// Test Case #1
+		//  - A single node tree has its only node removed.
+		// Create:
+		//                     10
+		//
+		// Call: remove(10)
+		//
+		// Result:
+		//                    empty tree
+		try
+		{
+			AVLTree<Integer> t1 = new AVLTree<Integer>( );
+			t1.insert(10);
+			t1.remove(10);
+			System.out.println("**** TEST CASE #1 (5 pts) ****");
+			t1.printTree();
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex.getMessage());
+			System.out.println("CRASH! During TEST CASE #1");
+		}
+		// Test Case #2
+		//  - A small tree has its leaf removed (tests searching
+		//    and deleting a leaf.
+		// Create:
+		//                     20
+		//                    /  \
+		//                  10    30
+		//                 /  \  /  \
+		//                5  15 25  35
+		//
+		// Call: remove(25)
+		//
+		// Results:
+		//                     20
+		//                    /  \
+		//                  10    30
+		//                 /  \     \
+		//                5  15     35		
+		
+		try
+		{
+			AVLTree<Integer> t2 = new AVLTree<Integer>( );
+			t2.insert(20);
+			t2.insert(10);
+			t2.insert(30);
+			t2.insert(5);
+			t2.insert(15);
+			t2.insert(25);
+			t2.insert(35);
+			
+			t2.remove(25);
+			System.out.println("**** TEST CASE #2 (5 pts) ****");		
+			t2.printTree();
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex.getMessage());
+			System.out.println("CRASH! During TEST CASE #2");
+		}
+		
+		// Test Case #3
+		//  - A small tree has an inner node removed.
+		// Create:
+		//                     20
+		//                    /  \
+		//                  10    30
+		//                 /  \  /  
+		//                5  15 25  
+		//
+		// Call: remove(30)
+		// 
+		// Results:
+		//                     20
+		//                    /  \
+		//                  10    25
+		//                 /  \     
+		//                5  15    	
+		
+		try
+		{
+			
+			AVLTree<Integer> t3 = new AVLTree<Integer>( );
+			t3.insert(20);
+			t3.insert(10);
+			t3.insert(30);
+			t3.insert(5);
+			t3.insert(15);
+			t3.insert(25);
+			
+			t3.remove(30);
+			System.out.println("**** TEST CASE #3 (5 pts) ****");		
+			t3.printTree();		
+		
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex.getMessage());
+			System.out.println("CRASH! During TEST CASE #3");
+		}
+		
+		// Test Case #4
+		//  - A small tree has a non-existant node removed.
+		// Create:
+		//                     20
+		//                    /  \
+		//                  10    30
+		//                 /  \  /  
+		//                5  15 25  
+		//
+		// Call: remove(17)
+		// 
+		// Results:
+		//                     20
+		//                    /  \
+		//                  10    30
+		//                 /  \  /  
+		//                5  15 25  	
+		
+		try
+		{
+		
+			AVLTree<Integer> t4 = new AVLTree<Integer>( );
+			t4.insert(20);
+			t4.insert(10);
+			t4.insert(30);
+			t4.insert(5);
+			t4.insert(15);
+			t4.insert(25);
+			
+			t4.remove(17);
+			System.out.println("**** TEST CASE #4 (5 pts) ****");		
+			t4.printTree();	
+		
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex.getMessage());
+			System.out.println("CRASH! During TEST CASE #4");
+		}
+		
+		// Test Case #5
+		//  - A small tree has its root removed.
+		// Create:
+		//                     20
+		//                    /  \
+		//                  10    30
+		//                       /  \
+		//                      25  35
+		//
+		// Call: remove(20)
+		// 
+		// Results: (simplest result with no rotations)
+		//          (replace root with smallest value on the right or 25)
+		//
+		//                     25
+		//                    /  \
+		//                  10    30
+		//                         \
+		//                         35		
+		// 
+		// (alternative results - replace root with largest value on the left or 10)
+		//   (single rotation)                (double rotation)
+		//
+		//          30                               25
+		//         /  \                             /  \
+		//       10    35                         10    30
+		//         \                                     \
+		//         25                                    35
+		
+		try
+		{
+			AVLTree<Integer> t5 = new AVLTree<Integer>( );
+			t5.insert(20);
+			t5.insert(10);
+			t5.insert(30);
+			t5.insert(25);
+			t5.insert(35);
+			
+			t5.remove(20);
+			System.out.println("**** TEST CASE #5 (5 pts) ****");		
+			t5.printTree();		
+			
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex.getMessage());
+			System.out.println("CRASH! During TEST CASE #5");
+		}		
+		
+		// Test Case #6
+		//  - A small tree has all nodes but the root removed from the bottom up.
+		// Create:
+		//                     20
+		//                    /  \
+		//                  10    30
+		//                 /  \  /  
+		//                5  15 25  
+		//
+		// Call: remove(5), remove(15), remove(25), remove(10), remove(30)
+		// 
+		// Results:
+		//                     20
+		
+		try
+		{
+			AVLTree<Integer> t6 = new AVLTree<Integer>( );
+			t6.insert(20);
+			t6.insert(10);
+			t6.insert(30);
+			t6.insert(5);
+			t6.insert(15);
+			t6.insert(25);
+			
+			t6.remove(5);
+			t6.remove(15);
+			t6.remove(25);
+			t6.remove(10);
+			t6.remove(30);		
+			System.out.println("**** TEST CASE #6 (5 pts) ****");		
+			t6.printTree();			
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex.getMessage());
+			System.out.println("CRASH! During TEST CASE #6");
+		}		
+		
+		// Test Case #7 (single rotation)
+		//  
+		// Create:
+		//
+		//                     20
+		//             /                 \
+		//            10                 30
+		//          /    \             /    \
+		//         5     15           25    40
+		//               /           /     /  \
+		//             12           22    35   50
+		//                               /
+		//                              31
+		// 
+		// Call: remove(50)
+		//
+		//                     20
+		//             /                 \
+		//            10                 30
+		//          /    \             /    \
+		//         5     15           25    35
+		//               /           /     /  \
+		//             12           22    31   40
+		//                                
+		//       
+		
+		try
+		{
+			
+			AVLTree<Integer> t7 = new AVLTree<Integer>( );
+			t7.insert(20);
+			t7.insert(10);
+			t7.insert(30);
+			t7.insert(5);
+			t7.insert(15);
+			t7.insert(25);
+			t7.insert(40);
+			t7.insert(12);
+			t7.insert(22);
+			t7.insert(35);
+			t7.insert(50);
+			t7.insert(31);
+			
+			t7.remove(50);	
+			System.out.println("**** TEST CASE #7 (10 pts) ****");		
+			t7.printTree();	
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex.getMessage());
+			System.out.println("CRASH! During TEST CASE #7");
+		}
+		
+		// Test Case #8 (double rotation)
+		//  
+		// Create:
+		//
+		//                     20
+		//             /                 \
+		//            10                 30
+		//          /    \             /    \
+		//         5     15           25    40
+		//               /           /     /  \
+		//             12           22    35   50
+		//                               /
+		//                              31
+		// 
+		// Call: remove(22)
+		//
+		//                     20
+		//             /                 \
+		//            10                 35
+		//          /    \             /    \
+		//         5     15           30    40
+		//               /           /  \      \
+		//             12           25  31     50
+		//                                
+		//           
+		
+		try
+		{
+		
+			AVLTree<Integer> t8 = new AVLTree<Integer>( );
+			t8.insert(20);
+			t8.insert(10);
+			t8.insert(30);
+			t8.insert(5);
+			t8.insert(15);
+			t8.insert(25);
+			t8.insert(40);
+			t8.insert(12);
+			t8.insert(22);
+			t8.insert(35);
+			t8.insert(50);
+			t8.insert(31);
+			
+			t8.remove(22);	
+			System.out.println("**** TEST CASE #8 (10 pts) ****");		
+			t8.printTree();	
+			
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex.getMessage());
+			System.out.println("CRASH! During TEST CASE #8");
+		}		
+		
+		// Test Case #9 (multiple rotations - using exam problem)
+		//
+		// Create:
+		//                     20
+		//             /                 \
+		//            10                 30
+		//          /    \             /    \
+		//         5     15           25    40
+		//               /           /     /  \
+		//             12           22    35   50
+		//                               /
+		//                              31
+		//
+		// Call: remove(5)
+		//
+		// Results:
+		//                     30
+		//             /                 \
+		//            20                 40
+		//          /    \             /    \
+		//        12      25          35    50
+		//       /  \    /           /     
+		//     10   15  22          31    
+		//                              
+		//                              	
+		
+		try
+		{
+		
+			AVLTree<Integer> t9 = new AVLTree<Integer>( );
+			t9.insert(20);
+			t9.insert(10);
+			t9.insert(30);
+			t9.insert(5);
+			t9.insert(15);
+			t9.insert(25);
+			t9.insert(40);
+			t9.insert(12);
+			t9.insert(22);
+			t9.insert(35);
+			t9.insert(50);
+			t9.insert(31);
+			
+			t9.remove(5);	
+			System.out.println("**** TEST CASE #9 (10 pts) ****");		
+			t9.printTree();			
+			
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex.getMessage());
+			System.out.println("CRASH! During TEST CASE #9");
+		}		
+
+	}
+}

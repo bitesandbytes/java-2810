@@ -1,0 +1,69 @@
+package minVertexCover;
+import java.util.*;
+public class Runner
+{
+	public static void main(String[] args)
+	{
+		Graph graph;
+		int n, m;
+		Scanner in = new Scanner(System.in);
+		n = in.nextInt();
+		graph = new Graph(n);
+		int vertexA, vertexB;
+		
+		//Vertex reference to hold the vertex to start recursion at.s
+		Vertex startVertex = graph.vertices[0];
+		while(true)
+		{
+			vertexA = in.nextInt();
+			if(vertexA == 0)
+				break;
+			vertexB = in.nextInt();
+			vertexA--;
+			vertexB--;
+			graph.vertices[vertexA].adjacentVertices.add(graph.vertices[vertexB]);
+			graph.vertices[vertexB].adjacentVertices.add(graph.vertices[vertexA]);
+			
+			//Update the vertex with maximum degree.
+			if(startVertex.compareTo(graph.vertices[vertexA]) < 0)
+				startVertex = graph.vertices[vertexA];
+			if(startVertex.compareTo(graph.vertices[vertexB]) < 0)
+				startVertex = graph.vertices[vertexB];
+		}
+		int minVertexCoverSize =  probeCurrentVertex(startVertex, true);
+		System.out.println(minVertexCoverSize);
+	}
+
+	//Computes the size of minimum vertex cover of the tree rooted at curVertex.
+	private static int probeCurrentVertex(Vertex curVertex, boolean mustBeIncluded)
+	{
+		System.out.println("Probing Vertex ");
+		if(curVertex.minVertexSizeStartingHere!=0)
+			return curVertex.minVertexSizeStartingHere;
+		int sum = 1;
+		for (Vertex v : curVertex.adjacentVertices)
+			sum+=probeCurrentVertex(v,false);
+		
+		//If curVertex must be picked, then all it's children must not be picked.
+		if(mustBeIncluded)
+			return 1+sum;
+		
+		//If curVertex is not necessarily picked, then check for vertex cover size without curVertex.
+		int otherSum = 0;
+		for (Vertex v : curVertex.adjacentVertices)
+			otherSum += probeCurrentVertex(v,true);
+		
+		//Return the minimum of the two cases.
+		curVertex.minVertexSizeStartingHere = min(sum,otherSum);
+		return curVertex.minVertexSizeStartingHere;
+	}
+
+	//Returns the minimum of the two integers 'a' and 'b'.
+	private static int min(int a, int b)
+	{
+		if(a < b)
+			return a;
+		else
+			return b;
+	}
+}

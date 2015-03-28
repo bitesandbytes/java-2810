@@ -1,0 +1,14 @@
+package minVertexCover;
+
+public class Graph
+{
+	public Vertex[] vertices;
+	public int n;
+	Graph(int n)
+	{
+		vertices = new Vertex[n];
+		for(Vertex v : vertices)
+			v = new Vertex();
+		this.n = n;
+	}
+}

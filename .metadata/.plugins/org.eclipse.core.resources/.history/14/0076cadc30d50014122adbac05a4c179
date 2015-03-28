@@ -1,0 +1,310 @@
+import java.util.*;
+
+public class AVLTree<T extends Comparable<T>>
+{
+	Node<T> treeRoot;
+	Queue<Node<T>> queue;
+	Stack<Node<T>> path;
+
+	AVLTree()
+	{
+		treeRoot = null;
+		queue = new LinkedList<Node<T>>();
+		path = new Stack<Node<T>>();
+	}
+
+	public void insert(T data)
+	{
+		Node<T> newNode = new Node<T>(data);
+		Node<T> unbalancedNode;
+		if (treeRoot == null)
+		{
+			treeRoot = newNode;
+			return;
+		}
+		BSTInsert(treeRoot, newNode);
+		updateBalanceRetrace(newNode);
+		unbalancedNode = findUnbalancedNode(newNode);
+		if (unbalancedNode == null)
+			return;
+		System.out.println("Unbalanced at " + unbalancedNode.data);
+		balance(unbalancedNode);
+		printBFS();
+	}
+
+	public Node<T> find(T data)
+	{
+		return recursiveFind(treeRoot, data);
+	}
+
+	public void remove(T removeData)
+	{
+		treeRoot = recursiveRemove(treeRoot, removeData);
+		// TODO:: Complete this thing.
+	}
+
+	public void print()
+	{
+		if (treeRoot == null)
+			return;
+		else
+			BSTPrint(treeRoot);
+	}
+
+	public void printBFS()
+	{
+		queue.add(treeRoot);
+		Node<T> curNode = null;
+		while (!queue.isEmpty())
+		{
+			curNode = queue.poll();
+			System.out.println(curNode.data + " ");
+			if (curNode.left != null)
+				queue.add(curNode.left);
+			if (curNode.right != null)
+				queue.add(curNode.right);
+		}
+		queue.clear();
+		return;
+	}
+
+	private void BSTPrint(Node<T> root)
+	{
+		if (root == null)
+			return;
+		BSTPrint(root.left);
+		System.out.println(root.data + " ");
+		BSTPrint(root.right);
+		return;
+	}
+
+	public Node<T> recursiveRemove(Node<T> root, T data)
+	{
+		if (root == null)
+		{
+			System.out.println("Element not found.");
+			return null;
+		}
+		if (root.data == data)
+		{
+			Node<T> minNode = findMin(root.right);
+			if (minNode == null)
+				root = root.right;
+			else
+			{
+				root.data = minNode.data;
+				root.right = recursiveRemove(root.right, root.data);
+			}
+		}
+		else if (root.data.compareTo(data) < 0)
+			root.right = recursiveRemove(root.right, data);
+		else
+			root.left = recursiveRemove(root.left, data);
+
+		return root;
+	}
+
+	private Node<T> recursiveFind(Node<T> root, T data)
+	{
+		if (root == null)
+			return null;
+		int result = root.data.compareTo(data);
+		if (result == 0)
+			return root;
+		else if (result < 0)
+			return recursiveFind(root.right, data);
+		else
+			return recursiveFind(root.left, data);
+	}
+
+	private void balance(Node<T> unbalancedNode)
+	{
+		boolean isLeftOfAncestor, isLeftOfParent;
+		Node<T> ancestor = unbalancedNode;
+		Node<T> parent, child;
+
+		if (ancestor.balanceFactor > 0)
+		{
+			parent = ancestor.left;
+			isLeftOfAncestor = true;
+		}
+		else
+		{
+			parent = ancestor.right;
+			isLeftOfAncestor = false;
+		}
+		if (parent.balanceFactor > 0)
+		{
+			child = parent.left;
+			isLeftOfParent = true;
+		}
+		else
+		{
+			child = parent.right;
+			isLeftOfParent = false;
+		}
+
+		if (isLeftOfAncestor && isLeftOfParent)
+		{
+			System.out.println("Balancing at " + unbalancedNode.data
+					+ ", case : LL.");
+			rightRotate(ancestor);
+			updateBalance(ancestor);
+			updateBalanceRetrace(child);
+		}
+		else if (isLeftOfAncestor && !isLeftOfParent)
+		{
+			System.out.println("Balancing at " + unbalancedNode.data
+					+ ", case : LR.");
+			leftRotate(parent);
+			rightRotate(ancestor);
+			updateBalance(ancestor);
+			updateBalanceRetrace(parent);
+		}
+		else if (!isLeftOfAncestor && isLeftOfParent)
+		{
+			System.out.println("Balancing at " + unbalancedNode.data
+					+ ", case : RL.");
+			rightRotate(parent);
+			leftRotate(ancestor);
+			updateBalance(parent);
+			updateBalanceRetrace(ancestor);
+		}
+		else
+		{
+			System.out.println("Balancing at " + unbalancedNode.data
+					+ ", case : RR.");
+			leftRotate(ancestor);
+			updateBalance(child);
+			updateBalanceRetrace(ancestor);
+		}
+	}
+
+	private void updateBalanceRetrace(Node<T> root)
+	{
+		if (root == null)
+			return;
+		else
+		{
+			updateBalance(root);
+			updateBalanceRetrace(root.parent);
+		}
+	}
+
+	private void updateBalance(Node<T> root)
+	{
+		root.height = max(height(root.left), height(root.right)) + 1;
+		root.balanceFactor = height(root.left) - height(root.right);
+		return;
+	}
+
+	private int height(Node<T> root)
+	{
+		if (root == null)
+			return -1;
+		else
+			return root.height;
+	}
+
+	private int max(int a, int b)
+	{
+		if (a < b)
+			return b;
+		else
+			return a;
+	}
+
+	// Performs a standard BST insert.
+	private void BSTInsert(Node<T> root, Node<T> insertNode)
+	{
+		if (root.compareTo(insertNode) > 0)
+		{
+			if (root.left == null)
+			{
+				root.left = insertNode;
+				insertNode.parent = root;
+			}
+			else
+				BSTInsert(root.left, insertNode);
+		}
+		else
+		{
+			if (root.right == null)
+			{
+				root.right = insertNode;
+				insertNode.parent = root;
+			}
+			else
+				BSTInsert(root.right, insertNode);
+		}
+		return;
+	}
+
+	// Finds an unbalanced ancestor.
+	private Node<T> findUnbalancedNode(Node<T> root)
+	{
+		if (root == null)
+			return null;
+		if (root.balanceFactor < -1 || root.balanceFactor > 1)
+			return root;
+		else
+			return findUnbalancedNode(root.parent);
+	}
+
+	private void leftRotate(Node<T> oldRoot)
+	{
+		Node<T> newRoot = oldRoot.right, alpha;
+		if (newRoot == null)
+			return;
+
+		alpha = newRoot.left;
+		newRoot.parent = oldRoot.parent;
+		oldRoot.parent = newRoot;
+		newRoot.right = oldRoot;
+		if (newRoot.parent == null)
+			treeRoot = newRoot;
+		else if (newRoot.parent.left == oldRoot)
+			newRoot.parent.left = newRoot;
+		else
+			newRoot.parent.right = newRoot;
+
+		oldRoot.right = alpha;
+		if (alpha != null)
+			alpha.parent = oldRoot;
+
+		return;
+	}
+
+	private void rightRotate(Node<T> oldRoot)
+	{
+		Node<T> newRoot = oldRoot.left, alpha;
+		if (newRoot == null)
+			return;
+
+		alpha = newRoot.right;
+		newRoot.parent = oldRoot.parent;
+		oldRoot.parent = newRoot;
+		newRoot.right = oldRoot;
+		if (newRoot.parent != null)
+		{
+			if (newRoot.parent.left == oldRoot)
+				newRoot.parent.left = newRoot;
+			else
+				newRoot.parent.right = newRoot;
+		}
+
+		oldRoot.left = alpha;
+		if (alpha != null)
+			alpha.parent = oldRoot;
+
+		return;
+	}
+
+	private Node<T> findMin(Node<T> root)
+	{
+		if (root.left == null)
+			return root;
+		else
+			return findMin(root.left);
+	}
+}

@@ -1,0 +1,12 @@
+package acadSection;
+
+public class nonFaculty extends Employee
+{
+	String department;
+	
+	public nonFaculty()
+	{
+		super();
+		department = null;
+	}
+}

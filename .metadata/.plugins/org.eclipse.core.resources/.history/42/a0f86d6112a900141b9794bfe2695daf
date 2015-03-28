@@ -1,0 +1,38 @@
+package acadSection;
+
+import java.util.HashSet;
+import java.util.Set;
+
+public class nonFaculty extends Employee implements CompareThem
+{
+	String department;
+	
+	public nonFaculty()
+	{
+		super();
+		department = null;
+	}
+	public String[] getName()
+	{
+		return this.name.split(" ", 3);
+	}
+	public boolean equals(CompareThem other)
+	{
+		Set <String> nameOne = new HashSet<String> ();
+		for (String iter : this.getName())
+			nameOne.add(iter);
+		Set <String> nameTwo = new HashSet<String> ();
+		for (String iter: other.getName())
+			nameTwo.add(iter);
+		if(nameOne.equals(nameTwo))
+			return true;
+		else
+			return false;
+	}
+	@Override
+	public boolean equals()
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+}

@@ -1,0 +1,9 @@
+package acadSection;
+
+import java.util.HashSet;
+
+public interface CompareThem
+{
+	public boolean isTheSame();
+	public HashSet<String> getSet();
+}

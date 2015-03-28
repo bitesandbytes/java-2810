@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;allRoadsLeadToRome.UndirectedGraph&apos; to &apos;Graph&apos;&#x0A;- Original project: &apos;allRoadsLeadToRome&apos;&#x0A;- Original element: &apos;allRoadsLeadToRome.UndirectedGraph&apos;&#x0A;- Renamed element: &apos;allRoadsLeadToRome.Graph&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;UndirectedGraph&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;allRoadsLeadToRome{UndirectedGraph.java[UndirectedGraph" matchStrategy="1" name="Graph" qualified="false" references="true" similarDeclarations="false" stamp="1424532672525" textual="false" version="1.0"/>
+</session>

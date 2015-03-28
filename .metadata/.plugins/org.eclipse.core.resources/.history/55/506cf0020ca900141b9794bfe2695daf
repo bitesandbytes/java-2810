@@ -1,0 +1,13 @@
+package acadSection;
+
+public class Employee
+{
+	double basicPay;
+	String empID;
+	public Employee()
+	{
+		super();
+		basicPay = 0;
+		empID = null;
+	}
+}

@@ -1,0 +1,30 @@
+package acadSection;
+
+import java.util.HashSet;
+import java.util.Set;
+
+public class Faculty extends Employee
+{
+	int facultyID;
+	String profPosition;
+	public Faculty()
+	{
+		super();
+		facultyID = 0;
+		profPosition = null;
+	}
+
+	public boolean equals(CompareThem other)
+	{
+		Set <String> nameOne = new HashSet<String> ();
+		for (String iter : this.getName())
+			nameOne.add(iter);
+		Set <String> nameTwo = new HashSet<String> ();
+		for (String iter: other.getName())
+			nameTwo.add(iter);
+		if(nameOne.equals(nameTwo))
+			return true;
+		else
+			return false;
+	}
+}

@@ -1,0 +1,20 @@
+package minVertexCover;
+import java.util.*;
+public class Vertex implements Comparable<Vertex>
+{
+	public boolean isIncluded;
+	public int minVertexSizeStartingHere;
+	public int vertexID ;
+	public ArrayList<Vertex> adjacentVertices;
+	Vertex(int ns)
+	{
+		isIncluded = false;
+		minVertexSizeStartingHere = 0;
+		vertexID = n;
+		adjacentVertices = new ArrayList<Vertex>();
+	}
+	public int compareTo(Vertex other)
+	{
+		return (new Integer(this.minVertexSizeStartingHere)).compareTo(new Integer(other.minVertexSizeStartingHere));
+	}
+}

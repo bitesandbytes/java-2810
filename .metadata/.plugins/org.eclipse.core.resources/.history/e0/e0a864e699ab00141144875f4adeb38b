@@ -1,0 +1,11 @@
+package sortPerformanceAnalysis;
+
+public class insertionSortObject <T extends Number>
+{
+	T[] array;
+	int count;
+	public insertionSortObject(int n)
+	{
+		array = new T[n];
+	}
+}

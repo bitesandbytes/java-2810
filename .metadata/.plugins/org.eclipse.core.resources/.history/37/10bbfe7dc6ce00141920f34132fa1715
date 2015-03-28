@@ -1,0 +1,13 @@
+package minVertexCover;
+
+public class Graph
+{
+	Vertex[] vertices;
+	@SuppressWarnings("unused")
+	Graph(int n)
+	{
+		vertices = new Vertex[n];
+		for(Vertex tempVertex: vertices)
+			tempVertex = new Vertex();
+	}
+}

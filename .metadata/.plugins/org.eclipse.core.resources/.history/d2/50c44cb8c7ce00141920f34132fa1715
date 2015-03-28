@@ -1,0 +1,12 @@
+package minVertexCover;
+import java.util.*;
+public class Vertex
+{
+	public boolean isIncluded;
+	public ArrayList<Vertex> adjacentVertices;
+	Vertex()
+	{
+		isIncluded = false;
+		adjacentVertices = new ArrayList<Vertex>();
+	}
+}

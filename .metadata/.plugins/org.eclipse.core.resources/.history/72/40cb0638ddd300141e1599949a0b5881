@@ -1,0 +1,11 @@
+/*
+ * Author : Sauce (CS13B056)
+ * CS2810 - Advanced Programming Lab
+ * Node Class.
+ */
+
+public class Node
+{
+	int data;
+	
+}

@@ -1,0 +1,52 @@
+package acadSection;
+
+import java.util.HashSet;
+import java.util.Set;
+
+public class Person implements CompareThem 
+{
+	String name;
+	char sex;
+	String nationality;
+	String fatherName;
+	String motherName;
+	String dept;
+	int age;
+	
+	public Person()
+	{
+		
+	}
+	
+	public Person(String name, char sex, String nationality, String fatherName,
+			String motherName, String dept, int age)
+	{
+		this.name = name;
+		this.sex = sex;
+		this.nationality = nationality;
+		this.fatherName = fatherName;
+		this.motherName = motherName;
+		this.dept = dept;
+		this.age = age;
+	}
+
+
+	public String[] getName()
+	{
+		return this.name.split(" ", 3);
+	}
+	
+	public boolean equals(CompareThem other)
+	{
+		Set <String> nameOne = new HashSet<String> ();
+		for (String iter : this.getName())
+			nameOne.add(iter);
+		Set <String> nameTwo = new HashSet<String> ();
+		for (String iter: other.getName())
+			nameTwo.add(iter);
+		if(nameOne.equals(nameTwo))
+			return true;
+		else
+			return false;
+	}
+}

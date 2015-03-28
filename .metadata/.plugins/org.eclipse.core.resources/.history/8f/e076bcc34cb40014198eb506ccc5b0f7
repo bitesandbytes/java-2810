@@ -1,0 +1,151 @@
+package allRoadsLeadToRome;
+
+import java.util.*;
+
+public class Runner
+{
+	private static Vertex Rome = null;
+	
+	private static Vertex getMinDistVertex(Set<Vertex> vertices)
+	{
+		int size = vertices.size();
+		if(size == 0)
+			return null;
+		
+		Iterator<Vertex> iter = vertices.iterator();
+		Vertex minDist  = iter.next();
+		Vertex trav = minDist;
+		
+		//Iterate over the set.
+		while(iter.hasNext())
+		{
+			trav = iter.next();
+			if(trav.distance < minDist.distance)
+				minDist = trav;
+		}
+		
+		return minDist;
+	}
+	
+	public static boolean existsRoadBetween(UndirectedGraph Cities, int queryVertex)
+	{
+		Vertex curVertex = Cities.vertices[queryVertex];
+		Set<Vertex> unVisited = new HashSet<Vertex>();
+		
+		//Populate the unvisited set of vertices.
+		for(int i=0;i<Cities.n;i++)
+		{
+			if(i==queryVertex)
+				continue;
+			Cities.vertices[i].distance = Double.POSITIVE_INFINITY;
+			Cities.vertices[i].prev = null;
+			unVisited.add(Cities.vertices[i]);
+		}
+		Iterator<WeightedEdge> adjVertexIterator;
+		Vertex adjVertex = null;
+		WeightedEdge outEdge = null;
+		double alternatePathLength;
+		
+		//Process each vertex in unvisited set of vertices.
+		while(!unVisited.isEmpty())
+		{
+			curVertex = getMinDistVertex(unVisited);
+			if(curVertex.equals(Rome))
+			{
+				if(curVertex.distance < Double.POSITIVE_INFINITY)
+				{
+					return true;
+				}
+			}
+			adjVertexIterator = curVertex.edges.iterator();
+			while(adjVertexIterator.hasNext())
+			{
+				outEdge = adjVertexIterator.next();
+				alternatePathLength = curVertex.distance + outEdge.getWeight();
+				adjVertex = outEdge.getDest();
+				if(alternatePathLength < adjVertex.distance)
+				{
+					adjVertex.distance = alternatePathLength;
+					adjVertex.prev = curVertex;
+				}
+			}
+			unVisited.remove(curVertex);
+		}
+		return true;
+	}
+	
+	//Prints the path between Rome and QueryVertex.
+	public static void printPathBetween(UndirectedGraph G, int queryVertex)
+	{
+		Vertex targetVertex = G.vertices[queryVertex];
+		Vertex currentVertex = Rome;
+		
+		System.out.print("0 ");
+		while(!currentVertex.equals(targetVertex))
+		{
+			currentVertex = currentVertex.prev;
+			if(currentVertex!=null)
+			{
+				System.out.print(currentVertex.vertexID+" ");
+			}
+		}
+
+		System.out.print("\n");
+		//TODO: Implement Dijkshtra's algorithm to find the path.
+	}
+	
+	//Marks all nodes as unvisited.
+	public static void markUnvisited(UndirectedGraph G)
+	{
+		int size = G.n;
+		for(int i=0;i<size;i++)
+			G.vertices[i].distance = Double.POSITIVE_INFINITY;
+		
+		return;
+	}
+
+	public static void main(String[] args)
+	{
+		UndirectedGraph Cities;
+		int n;
+		int e;
+		Scanner in = new Scanner(System.in);
+		n = in.nextInt();
+		e = in.nextInt();
+		Cities = new UndirectedGraph(n, e);
+		int vertexA, vertexB;
+		double weight;
+				
+		//Build the weighted graph.
+		for(int i=0;i<e;i++)
+		{
+			vertexA = in.nextInt();
+			vertexB = in.nextInt();
+			weight = (double)in.nextInt();
+			Cities.vertices[vertexA].edges.add(new WeightedEdge(Cities.vertices[vertexA], Cities.vertices[vertexB], weight));
+			Cities.vertices[vertexB].edges.add(new WeightedEdge(Cities.vertices[vertexB], Cities.vertices[vertexA], weight));
+		}
+		
+		//Query for a road between Rome and any given Vertex.
+		int QueryVertex = 1;
+		
+		Runner.Rome = Cities.vertices[0];
+		Runner.Rome.prev = null;
+		
+		
+		while(QueryVertex!=0)
+		{
+			QueryVertex = in.nextInt();
+			Cities.vertices[QueryVertex].distance = Double.NaN;
+			
+			//Prints a path, if any
+			if(existsRoadBetween(Cities, QueryVertex))
+				printPathBetween(Cities, QueryVertex);
+			
+			//To process the next Query.
+			markUnvisited(Cities);
+		}
+		
+		in.close();
+	}
+}

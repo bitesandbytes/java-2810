@@ -1,3 +1,9 @@
+/*
+ * Author : Sauce (CS13B056)
+ * CS2810 - Advanced Programming Lab
+ * Node class for AVL Tree implementation.
+ */
+
 public class Node<T extends Comparable<T>> implements Comparable<Node<T>>
 {
 	T data;

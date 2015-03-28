@@ -1,0 +1,20 @@
+package sortPerformanceAnalysis;
+
+import java.util.List;
+
+public class testClass
+{
+	public static <T extends Comparable<T>> double mergeSortTime(List<T> lst )
+	{
+		double totalTime = 0;
+		//Initialize timer
+		mergeSort.sort(lst);
+		
+		return totalTime;
+	}
+	
+	public static void main(String[] args)
+	{
+		
+	}
+}

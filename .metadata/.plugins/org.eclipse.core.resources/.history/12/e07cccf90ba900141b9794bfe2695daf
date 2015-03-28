@@ -1,0 +1,11 @@
+package acadSection;
+
+public class Employee
+{
+	double basicPay;
+	public Employee()
+	{
+		super();
+		basicPay = 0;
+	}
+}

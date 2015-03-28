@@ -10,20 +10,27 @@ public class Runner
 {
 	public static void main(String[] args)
 	{
-		AVLTree<Integer> tree = new AVLTree<Integer>();
+		AVLTree<Integer> treeAVL = new AVLTree<Integer>();
+		BSTree<Integer> treeBST = new BSTree<Integer>();
 		Scanner in = new Scanner(System.in);
 		Integer input = in.nextInt();
 		while(true)
 		{
-			if(tree.find(input) != null)
-				tree.remove(input);
+			if(treeAVL.find(input) != null)
+				treeAVL.remove(input);
 			else
-				tree.insert(input);
+				treeAVL.insert(input);
+			
+			if(treeBST.find(input) != null)
+				treeBST.remove(input);
+			else
+				treeBST.insert(input);
 			
 			input = in.nextInt();
 			if(input == -1)
 			{
-				tree.print();
+				treeAVL.print();
+				treeBST.print();
 				break;
 			}
 		}

@@ -1,0 +1,19 @@
+import java.util.*;
+
+public class KruskalAlgo
+{
+	public static Graph G = null;
+	public static PriorityQueue<Edge> sortedEdgeList = null;
+	
+	//Builds the empty graph G and a sorted edge list.
+	public static void initGraph(Graph graph)
+	{
+		G = new Graph(graph.n, 0);
+	}
+	
+	//TODO: Implement Kruskal's algorithm here.
+	public static void buildMinSpanningTree(Graph graph, PriorityQueue<Edge> edges, Graph minSpanningTree)
+	{
+		
+	}
+}

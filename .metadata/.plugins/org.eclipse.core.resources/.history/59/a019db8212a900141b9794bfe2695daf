@@ -1,0 +1,12 @@
+package acadSection;
+
+public class Person 
+{
+	String name;
+	char sex;
+	String nationality;
+	String fatherName;
+	String motherName;
+	String dept;
+	int age;
+}

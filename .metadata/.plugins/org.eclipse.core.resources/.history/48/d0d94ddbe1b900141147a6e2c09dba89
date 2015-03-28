@@ -1,0 +1,36 @@
+import java.util.*;
+
+public class KruskalAlgo
+{
+	public static Graph G = null;
+	public static PriorityQueue<Edge> sortedEdgeList = null;
+	
+	//Builds the empty graph G and a sorted edge list.
+	public static void initGraph(Graph graph)
+	{
+		G = new Graph(graph.n, 0);
+		
+		//Build the edge list.
+		for(Vertex v : graph.vertices)
+		{
+			for(Edge e: v.edges)
+			{
+				//If already a copy of the edge exists, don't add it.
+				if(sortedEdgeList.contains(new Edge(e.dest, e.source, e.weight)))
+					continue;
+				else
+				{
+					System.out.println("Adding ("+e.source+","+e.dest+","+e.weight);
+					sortedEdgeList.add(e);
+				}
+			}
+		}
+		Collections.sort(sortedEdgeList);
+	}
+	
+	//TODO: Implement Kruskal's algorithm here.
+	public static void buildMinSpanningTree(Graph graph, PriorityQueue<Edge> edges, Graph minSpanningTree)
+	{
+		
+	}
+}

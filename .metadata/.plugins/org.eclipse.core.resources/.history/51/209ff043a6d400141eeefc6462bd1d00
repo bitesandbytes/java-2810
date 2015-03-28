@@ -1,0 +1,119 @@
+import java.util.*;
+
+public class newAVL<T extends Comparable<T>>
+{
+	private Node<T> treeRoot;
+	private int treeSize;
+	private Stack<Node<T>> newNodePath;
+	private Queue<Node<T>> BFSQueue;
+
+	newAVL()
+	{
+		treeRoot = null;
+		treeSize = 0;
+		newNodePath = new Stack<Node<T>>();
+		BFSQueue = new LinkedList<Node<T>>();
+	}
+
+	public void insert(T data)
+	{
+		Node<T> newNode = new Node<T>(data);
+		treeSize++;
+		
+		if (treeRoot == null)
+			treeRoot = newNode;
+		else
+			stdInsert(treeRoot, newNode);
+		
+		updateBalanceFactor(newNode);
+	}
+
+	private void stdInsert(Node<T> root, Node<T> newNode)
+	{
+		if(root.compareTo(newNode) < 0)
+		{
+			if(root.left == null)
+			{
+				root.left = newNode;
+				newNode.parent = root;
+				return;
+			}
+			else
+				stdInsert(root.left, newNode);
+		}
+		else
+		{
+			if(root.right == null)
+			{
+				root.right = newNode;
+				newNode.parent = root;
+				return;
+			}
+			else
+				stdInsert(root.right, newNode);
+		}
+		return;
+	}
+
+	private void updateBalanceFactor(Node<T> root)
+	{
+		if (root == null)
+			return;
+		int leftFactor = 0, rightFactor = 0;
+		if (root.left != null)
+			leftFactor = root.left.balanceFactor + 1;
+		if (root.right != null)
+			rightFactor = root.right.balanceFactor + 1;
+		root.balanceFactor = max(leftFactor, rightFactor);
+		updateBalanceFactor(root.parent);
+		return;
+	}
+
+	// Prints the AVL Tree in sorted manner using inorder traversal.
+	public void print()
+	{
+		printInorder(treeRoot);
+		System.out.print("\n");
+		return;
+	}
+
+	// Does a standard BST recursive Inorder traversal.
+	private void printInorder(Node<T> root)
+	{
+		if (root == null)
+			return;
+		printInorder(root.left);
+		System.out.print(" " + root.data);
+		printInorder(root.right);
+		return;
+	}
+
+	// Does a BFS traversal of the AVL Tree.
+	private void printBFS()
+	{
+		System.out.println(" ");
+		BFSQueue.add(treeRoot);
+		Node<T> curNode = null;
+		while (!BFSQueue.isEmpty())
+		{
+			curNode = BFSQueue.remove();
+			System.out.println(curNode.data + " " + "BF = "
+					+ curNode.balanceFactor);
+			if (curNode.left != null)
+				BFSQueue.add(curNode.left);
+			if (curNode.right != null)
+				BFSQueue.add(curNode.right);
+		}
+		// System.out.println(" ");
+		return;
+	}
+
+	private int max(int a, int b)
+	{
+		if (a < b)
+			return b;
+		else
+			return a;
+	}
+
+}

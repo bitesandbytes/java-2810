@@ -1,0 +1,30 @@
+package acadSection;
+
+public class Employee extends Person
+{
+	double basicPay;
+	public double getBasicPay()
+	{
+		return basicPay;
+	}
+	public void setBasicPay(double basicPay)
+	{
+		this.basicPay = basicPay;
+	}
+	public String getEmpID()
+	{
+		return empID;
+	}
+	public void setEmpID(String empID)
+	{
+		this.empID = empID;
+	}
+	
+	String empID;
+	public Employee()
+	{
+		super();
+		basicPay = 0;
+		empID = null;
+	}
+}

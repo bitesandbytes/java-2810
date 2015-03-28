@@ -1,0 +1,12 @@
+package acadSection;
+
+public class Faculty extends Employee
+{
+	int facultyID;
+	String profPosition;
+	public Faculty()
+	{
+		facultyID = 0;
+		profPosition = null;
+	}
+}

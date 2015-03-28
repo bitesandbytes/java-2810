@@ -1,3 +1,8 @@
+/*
+ * Author : Sauce (CS13B056) 
+ * CS2810 - Advanced Programming Lab 
+ * AVL Tree implementation.
+ */
 import java.util.*;
 
 public class AVLTree<T extends Comparable<T>>
@@ -13,6 +18,7 @@ public class AVLTree<T extends Comparable<T>>
 		lastDeletedNode = null;
 	}
 
+	// Inserts 'data' into the AVL Tree.
 	public void insert(T data)
 	{
 		Node<T> newNode = new Node<T>(data);
@@ -27,14 +33,19 @@ public class AVLTree<T extends Comparable<T>>
 		}
 		else
 			treeRoot = newNode;
+		System.out.print("AVL Tree -> ");
 		printBFS();
+		if (treeRoot != null)
+			System.out.println("AVL Tree Height = " + treeRoot.height);
 	}
 
+	// Returns the location of 'data' if found in the AVL Tree.
 	public Node<T> find(T data)
 	{
 		return recursiveFind(treeRoot, data);
 	}
 
+	// Removes 'removeData' from AVL Tree, if it exists.
 	public void remove(T removeData)
 	{
 		treeRoot = BSTRemove(treeRoot, removeData);
@@ -43,11 +54,16 @@ public class AVLTree<T extends Comparable<T>>
 		if (unbalancedNode != null)
 			balance(unbalancedNode);
 		lastDeletedNode = null;
+		System.out.print("AVL Tree -> ");
 		printBFS();
+		if (treeRoot != null)
+			System.out.println("AVL Tree Height = " + treeRoot.height);
 	}
 
+	// Prints the AVL Tree in sorted manner.
 	public void print()
 	{
+		System.out.print("AVL Tree -> ");
 		if (treeRoot == null)
 			return;
 		else
@@ -55,14 +71,28 @@ public class AVLTree<T extends Comparable<T>>
 		System.out.println("");
 	}
 
+	// Prints the AVL Tree in BFS manner.
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void printBFS()
 	{
-		if (treeRoot != null)
-			queue.add(treeRoot);
+		if (treeRoot == null)
+			return;
+		queue.add(treeRoot);
+		Node node = new Node(Integer.MIN_VALUE);
+		Node<T> dummyNode = (Node<T>) node;
+		queue.add(dummyNode);
 		Node<T> curNode = null;
 		while (!queue.isEmpty())
 		{
 			curNode = queue.poll();
+			if (queue.isEmpty())
+				break;
+			if (curNode.compareTo(dummyNode) == 0)
+			{
+				System.out.print(" # ");
+				queue.add(dummyNode);
+				continue;
+			}
 			System.out.print(curNode.data + " ");
 			if (curNode.left != null)
 				queue.add(curNode.left);
@@ -74,6 +104,7 @@ public class AVLTree<T extends Comparable<T>>
 		return;
 	}
 
+	// Print routine from BST.
 	private void BSTPrint(Node<T> root)
 	{
 		if (root == null)
@@ -84,6 +115,7 @@ public class AVLTree<T extends Comparable<T>>
 		return;
 	}
 
+	// Remove routine from BST.
 	public Node<T> BSTRemove(Node<T> root, T data)
 	{
 		if (root == null)
@@ -124,6 +156,7 @@ public class AVLTree<T extends Comparable<T>>
 		return root;
 	}
 
+	// Finds 'data' in subtree rooted at 'root'.
 	private Node<T> recursiveFind(Node<T> root, T data)
 	{
 		if (root == null)
@@ -137,6 +170,7 @@ public class AVLTree<T extends Comparable<T>>
 			return recursiveFind(root.left, data);
 	}
 
+	// Balances the AVL Tree near 'unbalancedNode'.
 	private void balance(Node<T> unbalancedNode)
 	{
 		boolean isLeftOfAncestor, isLeftOfParent;
@@ -196,6 +230,7 @@ public class AVLTree<T extends Comparable<T>>
 		return;
 	}
 
+	// Updates the balance factors till root is reached.
 	private void updateBalanceRetrace(Node<T> root)
 	{
 		if (root == null)
@@ -207,6 +242,7 @@ public class AVLTree<T extends Comparable<T>>
 		}
 	}
 
+	// Updates the balance factor for 'root'.
 	private void updateBalance(Node<T> root)
 	{
 		root.height = max(height(root.left), height(root.right)) + 1;
@@ -214,6 +250,7 @@ public class AVLTree<T extends Comparable<T>>
 		return;
 	}
 
+	// Returns height of 'root'.
 	private int height(Node<T> root)
 	{
 		if (root == null)
@@ -222,6 +259,7 @@ public class AVLTree<T extends Comparable<T>>
 			return root.height;
 	}
 
+	// Returns max of 'a' and 'b'.
 	private int max(int a, int b)
 	{
 		if (a < b)
@@ -268,6 +306,7 @@ public class AVLTree<T extends Comparable<T>>
 			return findUnbalancedNode(root.parent);
 	}
 
+	// Does a left rotate about 'oldRoot'.
 	private void leftRotate(Node<T> oldRoot)
 	{
 		Node<T> parent = oldRoot.parent;
@@ -291,6 +330,7 @@ public class AVLTree<T extends Comparable<T>>
 		return;
 	}
 
+	// Does a right rotate about 'oldRoot'.
 	private void rightRotate(Node<T> oldRoot)
 	{
 		Node<T> parent = oldRoot.parent;
@@ -313,6 +353,7 @@ public class AVLTree<T extends Comparable<T>>
 		return;
 	}
 
+	// Finds the minimum value node in subtree rooted at 'root'.
 	private Node<T> findMin(Node<T> root)
 	{
 		if (root == null)

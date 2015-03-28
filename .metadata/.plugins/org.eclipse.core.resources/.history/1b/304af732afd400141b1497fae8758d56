@@ -1,0 +1,11 @@
+
+public class Node<T extends Comparable<T>>
+{
+	T data;
+	int balanceFactor;
+	
+	Node(T data)
+	{
+		if)
+	}
+}

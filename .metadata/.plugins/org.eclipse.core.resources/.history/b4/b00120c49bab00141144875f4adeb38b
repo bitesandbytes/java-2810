@@ -1,0 +1,20 @@
+package sortPerformanceAnalysis;
+
+public class insertionSortObject <T extends Number>
+{	
+	public T[] sortUsingInsertion(T[] array, int nums)
+	{
+		int i=1, j=0;
+		int temp;
+		//If the array contains only one item.
+		if(nums==0)
+			return array;
+		for(i;i<nums;i++)
+		{
+			temp = array[i];
+			
+		}
+		
+		return array;
+	}
+}

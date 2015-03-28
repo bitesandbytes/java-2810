@@ -1,0 +1,28 @@
+/*
+ * Author : Sauce (CS13B056)
+ * CS2810 - Advanced Programming Lab
+ * Node Class.
+ */
+
+public class Node<T extends Comparable<T>> implements Comparable<Node<T>>
+{
+	T data;
+	Node<T> left;
+	Node<T> right;
+	Node<T> parent;
+	int balanceFactor;
+	
+	Node(T data)
+	{
+		this.data = data;
+		balanceFactor = 0;
+		left = right = parent = null;
+	}
+	
+	public int compareTo(Node<T> other)
+	{
+		if(other ==  null)
+			return 1;
+		return (this.data.compareTo(other.data));
+	}
+}

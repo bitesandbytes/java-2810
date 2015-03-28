@@ -1,0 +1,17 @@
+/*
+ * Author : Sauce (CS13B056)
+ * CS2810 - Advanced Programming Lab
+ * Node Class.
+ */
+
+public class Node
+{
+	int data;
+	int balanceFactor;
+	
+	Node(int data)
+	{
+		this.data = data;
+		balanceFactor = 0;
+	}
+}
