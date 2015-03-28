@@ -1,0 +1,52 @@
+package acadSection;
+
+public class Faculty extends Employee
+{
+	String facultyID;
+	String profPosition;
+	
+	public Faculty()
+	{
+		super();
+		facultyID = null;
+		profPosition = null;
+	}
+	
+	public Faculty(String name, char sex, String nationality, String fatherName,
+			String motherName, String dept, int age)
+	{
+		super(name, sex, nationality, fatherName, motherName, dept, age);
+		this.facultyID = null;
+		this.profPosition = null;
+	}
+
+	@Override
+	public String getID()
+	{
+		return facultyID;
+	}
+	
+	@Override
+	public void setID(String facultyID)
+	{
+		this.facultyID = facultyID;
+	}
+
+	public String getProfPosition()
+	{
+		return profPosition;
+	}
+
+	public void setProfPosition(String profPosition)
+	{
+		this.profPosition = profPosition;
+	}
+	
+	//Not a overridden method.
+	public void receiveMail()
+	{
+		System.out.println("Received mail regarding student.");
+		return;
+	}
+
+}

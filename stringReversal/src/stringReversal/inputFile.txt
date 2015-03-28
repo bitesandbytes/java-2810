@@ -1,0 +1,4 @@
+This is a "good day" to die hard.
+This is a good day to die hard.
+This "is a " good "day to" die hard.
+This is a good day to "die hard".
