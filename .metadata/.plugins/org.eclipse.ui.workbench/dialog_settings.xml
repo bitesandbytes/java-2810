@@ -16,7 +16,7 @@
 		<item value="5" key="DIALOG_Y_ORIGIN"/>
 		<item value="521" key="DIALOG_X_ORIGIN"/>
 	</section>
-	<section name="ZipFileExportWizard">
+	<section name="ZipFileImportWizard">
 	</section>
 	<section name="NewWizardAction">
 		<item value="org.eclipse.jdt.ui.wizards.NewClassCreationWizard" key="NewWizardSelectionPage.STORE_SELECTED_ID"/>
@@ -24,7 +24,7 @@
 			<item value="org.eclipse.jdt.ui.java"/>
 		</list>
 	</section>
-	<section name="ZipFileImportWizard">
+	<section name="ZipFileExportWizard">
 	</section>
 	<section name="ImportExportAction">
 		<item value="org.eclipse.ui.wizards.import.ExternalProject" key="ImportExportPage.STORE_SELECTED_IMPORT_WIZARD_ID"/>
