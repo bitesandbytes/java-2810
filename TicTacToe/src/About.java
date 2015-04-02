@@ -1,20 +1,25 @@
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.awt.Color;
+import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import java.awt.Font;
-import java.awt.Color;
-import javax.swing.JInternalFrame;
-
+import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class About extends JDialog
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 
 	/**
@@ -46,6 +51,21 @@ public class About extends JDialog
 		contentPanel.setLayout(null);
 		{
 			JButton btnBackToGame = new JButton("Back to Game");
+			btnBackToGame.addMouseListener(new MouseAdapter()
+			{
+				@Override
+				public void mouseClicked(MouseEvent e)
+				{
+					closeWindow();
+				}
+			});
+			btnBackToGame.addActionListener(new ActionListener()
+			{
+				public void actionPerformed(ActionEvent e)
+				{
+					closeWindow();
+				}
+			});
 			btnBackToGame.setBounds(290, 158, 130, 25);
 			contentPanel.add(btnBackToGame);
 		}
@@ -68,13 +88,16 @@ public class About extends JDialog
 			contentPanel.add(lblCreatedByJssuhas);
 		}
 		{
-			JLabel lblForProjectSource = new JLabel("For project source code, visit ");
+			JLabel lblForProjectSource = new JLabel(
+					"For project source code, visit ");
 			lblForProjectSource.setBounds(5, 95, 415, 32);
 			contentPanel.add(lblForProjectSource);
 		}
 		{
-			JLabel lblGithubbitesandbytesjavatictactoe = new JLabel("github.com/bitesandbytes/java-2810/TicTacToe");
-			lblGithubbitesandbytesjavatictactoe.setHorizontalAlignment(SwingConstants.CENTER);
+			JLabel lblGithubbitesandbytesjavatictactoe = new JLabel(
+					"github.com/bitesandbytes/java-2810/TicTacToe");
+			lblGithubbitesandbytesjavatictactoe
+					.setHorizontalAlignment(SwingConstants.CENTER);
 			lblGithubbitesandbytesjavatictactoe.setBounds(34, 119, 336, 32);
 			contentPanel.add(lblGithubbitesandbytesjavatictactoe);
 		}
@@ -83,5 +106,12 @@ public class About extends JDialog
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			buttonPane.setLayout(null);
 		}
+	}
+
+	public void closeWindow()
+	{
+		this.setVisible(false);
+		this.dispose();
+		return;
 	}
 }
