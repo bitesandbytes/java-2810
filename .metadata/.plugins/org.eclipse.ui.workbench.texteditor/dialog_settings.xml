@@ -3,26 +3,26 @@
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="265" key="DIALOG_WIDTH"/>
 		<item value="208" key="DIALOG_Y_ORIGIN"/>
-		<item value="959" key="DIALOG_X_ORIGIN"/>
 		<item value="422" key="DIALOG_HEIGHT"/>
+		<item value="959" key="DIALOG_X_ORIGIN"/>
 		<item value="1|Ubuntu|9.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="true" key="wrap"/>
-		<item value="true" key="casesensitive"/>
 		<item value="false" key="isRegEx"/>
+		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value=".data.compareTo(n) == 0" key="selection"/>
+		<item value="" key="selection"/>
 		<list key="findhistory">
+			<item value="exit"/>
+			<item value="aboutWindow"/>
+			<item value="Layout"/>
+			<item value="layout"/>
+			<item value="Group"/>
 			<item value=".data == n"/>
 			<item value=".getData()"/>
 			<item value=".getLeft()"/>
-			<item value=".getRight()"/>
-			<item value="Node"/>
-			<item value="node"/>
-			<item value="AvlTree"/>
-			<item value="clear"/>
 		</list>
 		<list key="replacehistory">
 			<item value=".data.compareTo(n) == 0"/>
